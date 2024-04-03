@@ -1,0 +1,128 @@
+﻿@model BookStoreCore.Models.Sach
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@Html.AntiForgeryToken()
+
+@{
+    ViewData["Title"] = "Thêm Sách Mới";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+
+    <h1>Thêm Sách Mới</h1>
+
+    <form method="post" enctype="multipart/form-data" asp-action="ThemSachMoi">
+        <div class="row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Anhbia" class="control-label">Ảnh Bìa</label>
+                    <input type="file" name="anhbiaa" class="form-control" id="anhbia" onchange="previewImage(this)" />
+                    <span asp-validation-for="Anhbia" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <!-- Trường input hidden để lưu giá trị ẩn đi -->
+                    <input asp-for="Anhbia" type="hidden" id="anhbiaHidden" name="Anhbia" />
+                </div>
+
+
+                <div class="form-group">
+                    <img onchange="previewImage(this)" id="preview" src="#" alt="Ảnh Bìa"
+                         style="max-width: 200px; max-height: 200px;" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tensach" class="control-label">Tên Sách</label>
+                    <input asp-for="Tensach" class="form-control" />
+                    <span asp-validation-for="Tensach" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Giaban" class="control-label">Giá Bán</label>
+                    <input asp-for="Giaban" class="form-control" />
+                    <span asp-validation-for="Giaban" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mota" class="control-label ">Mô Tả</label>
+                    <!-- Thay thế trường textarea bằng trường TinyMCE -->
+                    <textarea asp-for="Mota" class="form-control" id="Mota"> </textarea>
+                    <span asp-validation-for="Mota" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Ngaycapnhap" class="control-label">Ngày Cập Nhật</label>
+                    <input asp-for="Ngaycapnhap" class="form-control" type="date" />
+                    <span asp-validation-for="Ngaycapnhap" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Soluongton" class="control-label">Số Lượng Tồn</label>
+                    <input asp-for="Soluongton" class="form-control" />
+                    <span asp-validation-for="Soluongton" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MaCd" class="control-label">Tên Chủ đề</label>
+                    <select asp-for="MaCd" class="form-control">
+                        @foreach (var item in ViewBag.MaCd)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MaNxb" class="control-label">Mã Nhà Xuất Bản</label>
+                    <select asp-for="MaNxb" class="form-control">
+                        @foreach (var item in ViewBag.MaNxb)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Tạo Mới</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+    <a asp-action="DanhMucSanPham" class="btn btn-primary"  >Quay Lại</a>
+    </div>
+
+<script src="../Layout/tinymce/js/tinymce/tinymce.min.js"></script>
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview').attr('src', e.target.result);
+                $('#preview').css('display', 'block'); // Hiển thị ảnh xem trước
+                var hiddenInput = document.getElementById("anhbiaHidden");
+                hiddenInput.value = input.value.split('\\').pop();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        debugger;
+        tinymce.init({
+            selector: '#Mota',
+            forced_root_block: false,
+            width: 1000,
+            height: 300,
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                'table', 'emoticons', 'codesample'
+            ],
+            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons',
+            menu: {
+                favs: { title: 'menu', items: 'code visualaid | searchreplace | emoticons' }
+            },
+            menubar: 'favs file edit view insert format tools table',
+            content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
+        });
+    });
+</script>

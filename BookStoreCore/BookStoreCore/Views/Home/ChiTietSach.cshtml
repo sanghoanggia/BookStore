@@ -1,0 +1,88 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model BookStoreCore.Models.Sach
+
+
+@{
+	ViewData["Title"] = "ChiTietSach";
+	Layout = "~/Views/Shared/_LayoutBookStore.cshtml";
+}
+<div class="row">
+	<div id="gallery" class="span3">
+		
+		<a href="#" title="Fujifilm FinePix S2950 Digital Camera">
+			<img src="@Url.Content("../image/"+Model.Anhbia)">
+		</a>
+		<div id="differentview" class="moreOptopm carousel slide">
+			<div class="carousel-inner">
+				<div class="item active">
+					<a href="themes/images/products/large/f1.jpg">
+						<img style="width:29%"
+							 src="themes/images/products/large/f1.jpg" alt="" />
+					</a>
+					<a href="themes/images/products/large/f2.jpg">
+						<img style="width:29%"
+							 src="themes/images/products/large/f2.jpg" alt="" />
+					</a>
+					<a href="themes/images/products/large/f3.jpg">
+						<img style="width:29%"
+							 src="themes/images/products/large/f3.jpg" alt="" />
+					</a>
+				</div>
+				<div class="item">
+					<a href="themes/images/products/large/f3.jpg">
+						<img style="width:29%"
+							 src="themes/images/products/large/f3.jpg" alt="" />
+					</a>
+					<a href="themes/images/products/large/f1.jpg">
+						<img style="width:29%"
+							 src="themes/images/products/large/f1.jpg" alt="" />
+					</a>
+					<a href="themes/images/products/large/f2.jpg">
+						<img style="width:29%"
+							 src="themes/images/products/large/f2.jpg" alt="" />
+					</a>
+				</div>
+			</div>
+			<!--
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+			-->
+		</div>
+
+		
+	</div>
+	<div class="span6">
+		<h3>@Model.Tensach</h3>
+		<small>@Model.Mota</small>
+		<hr class="soft" />
+		<form class="form-horizontal qtyFrm" method="post" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Masach">
+			<div class="control-group">
+				<label class="control-label"><span>@Model.Giaban VNĐ</span></label>
+				<div class="controls">
+					<input type="hidden" name="id" value="@Model.Masach" />
+					
+					<input type="number" class="span1" value="1" name="SoLuong" placeholder="Qty." />
+					<button type="submit" class="btn btn-large btn-primary pull-right">
+						Thêm vào giỏ
+						<i class="icon-shopping-cart"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+
+
+		<hr class="soft" />
+		<h4>Số lượng còn: @Model.Soluongton</h4>
+		
+		<hr class="soft clr" />
+		@* <p>
+			@Model.Mota
+
+		</p> *@
+
+		<a href="#" name="detail"></a>
+		<hr class="soft" />
+	</div>
+</div>

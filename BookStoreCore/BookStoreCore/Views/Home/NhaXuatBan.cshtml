@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "NhaXuatBan";
+    Layout = "~/Views/Shared/_LayoutBookStore.cshtml";
+}
+
+ @using X.PagedList.Mvc.Core;
+ @model X.PagedList.IPagedList<Sach> 
+
+
+@foreach (var item in Model)
+{
+    @await Html.PartialAsync("PartialSach", item);
+}
+
+<div class="product__patiti" style=" display: flex;
+   justify-content: center;">
+    @Html.PagedListPager(Model, page => Url.Action("NhaXuatBan", new { page = page, maNXB = ViewBag.maNXB }));
+</div>

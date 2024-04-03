@@ -1,0 +1,91 @@
+﻿@using BookStoreCore.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Sach>;
+@using Microsoft.EntityFrameworkCore;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "DanhMucSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh mục sản phẩm</h2>
+
+<p>
+    <a asp-action="ThemSachMoi">Create New</a>
+</p>
+<p>@TempData["Message"]</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th> 
+                Ảnh
+            </th>
+            <th>
+                Tên Sách
+            </th>
+            <th>
+               Giá Bán
+            </th>
+            <th>
+          Mô tả
+            </th>
+            <th>
+                Số lượng tồn
+            </th>
+@*             <th>
+            Chủ Đề
+            </th>
+            <th>
+                Nhà Xuất Bản
+            </th> *@
+            <th>
+                Chức Năng
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@Url.Content("~/image/" + item.Anhbia)" alt="image" width="70" height="70" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tensach)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Giaban)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mota)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluongton)
+            </td>
+              @*   <td>
+                    @ViewBag.tenchude;
+                 
+                    
+                </td>
+                <td>
+                    @ViewBag.tennxb;
+                </td>
+             *@
+            <td>
+                <a asp-action="SuaSach" asp-route-maSach="@item.Masach">Edit</a> |
+                    <a asp-action="ChitietSanPham" asp-route-maSach="@item.Masach">Details</a> |
+                    <a asp-action="XoaSach" asp-route-maSach="@item.Masach">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+<!-- Thêm phân trang vào layout -->
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("DanhMucSanPham", new { page }), new PagedListRenderOptions { LiElementClasses = new List<string> { "page-item" }, PageClasses = new List<string> { "page-link" } })
+</div>

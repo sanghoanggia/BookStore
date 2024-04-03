@@ -1,0 +1,52 @@
+﻿@model Sach
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<style>
+    .thumbnail {
+
+        width: 100%; /* Thiết lập độ rộng cho sản phẩm */
+      /*    height: 400px; /* Thiết lập độ cao cho sản phẩm */   */
+        margin-bottom: 20px; /* Khoảng cách giữa các sản phẩm */
+    }
+
+    .thumbnaill{
+        display: flex;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Thiết lập độ rộng cho sản phẩm */
+        height: 400px; /* Thiết lập độ cao cho sản phẩm */ 
+    }
+        .thumbnail img {
+            max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của phần tử cha */
+            height: auto; /* Đảm bảo tỷ lệ khung hình được bảo toàn */
+        }
+
+    .caption {
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+<li class="span3">
+    <div class="thumbnail">
+        <div class="thumbnaill">
+        <a href="product_details.html"><img src="@Url.Content("../image/"+Model.Anhbia)"></a>
+        <div class="caption">
+            <h5> <a asp-controller="Home" asp-action="ChiTietSach" asp-route-maSach="@Model.Masach">@Model.Tensach</a></h5>
+            <p>
+                @if (Model.Mota.Length > 20)
+                {
+                    @Model.Mota.Substring(0, 20) <!-- Cắt ngắn mô tả nếu vượt quá 100 ký tự -->
+                    <span>...</span>
+                }
+                else
+                {
+                    @Model.Mota <!-- Hiển thị mô tả nguyên gốc nếu không vượt quá 100 ký tự -->
+                }
+            </p>
+            <h4 style="text-align:center"><a class="#" href="#">@Model.Giaban</a></h4>
+            </div>
+        </div>
+    </div>
+</li>

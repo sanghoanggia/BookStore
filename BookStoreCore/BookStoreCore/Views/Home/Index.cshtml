@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutBookStore.cshtml";
+}
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Sach>
+
+@foreach (var item in Model)
+{
+    @await Html.PartialAsync("PartialSach", item)
+}
+
+<!-- Thêm phân trang vào layout -->
+
+@* <div class="pagination mt-4 mt-5 mt-6">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+{
+    LiElementClasses = new List<string> { "page-item" },
+    PageClasses = new List<string> { "page-link" }
+})
+</div>
+ *@

@@ -1,0 +1,47 @@
+﻿@model BookStoreCore.Models.Sach
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chi Tiết Sản Phẩm</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông Tin Sách</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Ảnh Bìa:</dt>
+            @*         <dd class="col-sm-9">@Html.DisplayFor(model => model.Anhbia)</dd> *@
+
+            <img src="@Url.Content("~/image/" + @Model.Anhbia)" alt="image" width="70" height="70" />
+            <dt class="col-sm-3">Tên Sách:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Tensach)</dd>
+
+            <dt class="col-sm-3">Giá Bán:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Giaban)</dd>
+
+            <dt class="col-sm-3">Mô Tả:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Mota)</dd>
+
+           
+            <dt class="col-sm-3">Ngày Cập Nhật:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngaycapnhap)</dd>
+
+            <dt class="col-sm-3">Số Lượng Tồn:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Soluongton)</dd>
+
+            <dt class="col-sm-3">Chủ Đề:</dt>
+            @ViewBag.tenchude
+
+            <dt class="col-sm-3">Nhà Xuất Bản:</dt>
+            @ViewBag.tennhaxuatban
+        </dl>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="DanhMucSanPham">Quay Lại</a>
+</div>

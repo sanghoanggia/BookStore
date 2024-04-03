@@ -1,0 +1,113 @@
+﻿@model BookStoreCore.Models.Sach
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Sửa Sách";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!DOCTYPE html>
+
+<h1>Sửa Sách</h1>
+
+<h4>Sách</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SuaSach">
+            <div class="form-group">
+                <label asp-for="Anhbia" class="control-label">Ảnh Bìa</label>
+                <input asp-for="Anhbia" type="file" class="form-control" id="anhbia" value="@Model.Anhbia" onchange="previewImage(this)" />
+                <span asp-validation-for="Anhbia" class="text-danger"></span>
+                <br />
+            </div>
+            <div>
+                @if (!string.IsNullOrEmpty(Model.Anhbia))
+                {
+                    <img src="@Url.Content("~/image/" + Model.Anhbia)" id="preview" width="100" />
+
+                    <span class="hidee">ảnh hiện tại</span>
+                }
+                else
+                {
+                    <span class="hidee">Không có ảnh hiện tại</span>
+                }
+            </div>
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Masach" />
+            <div class="form-group">
+                <label asp-for="Tensach" class="control-label">Tên Sách</label>
+                <input asp-for="Tensach" class="form-control" />
+                <span asp-validation-for="Tensach" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Giaban" class="control-label">Giá Bán</label>
+                <input asp-for="Giaban" class="form-control" />
+                <span asp-validation-for="Giaban" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mota" class="control-label">Mô Tả</label>
+                <input asp-for="Mota" id="Mota" class="form-control" />
+                <span asp-validation-for="Mota" class="text-danger"></span>
+            </div>
+    
+            <div class="form-group">
+                <label asp-for="Ngaycapnhap" class="control-label">Ngày Cập Nhật</label>
+                <input asp-for="Ngaycapnhap" class="form-control" />
+                <span asp-validation-for="Ngaycapnhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Soluongton" class="control-label">Số Lượng Tồn</label>
+                <input asp-for="Soluongton" class="form-control" />
+                <span asp-validation-for="Soluongton" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaCd" class="control-label">Mã Chủ Đề</label>
+                <select asp-for="MaCd" class="form-control">
+                    @foreach (var item in ViewBag.MaCd)
+                    {
+                        <option value="@int.Parse(item.Value)">@item.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="MaCd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaNxb" class="control-label">Mã Nhà Xuất Bản</label>
+                <select asp-for="MaNxb" class="form-control">
+                    @foreach (var item in ViewBag.MaNxb)
+                    {
+                        <option value="@int.Parse(item.Value)">@item.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="MaNxb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="DanhMucSanPham">Quay Lại</a>
+</div>
+
+@section Scripts {
+    <script>
+ 
+                function previewImage(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#preview').attr('src', e.target.result);
+                            $('#preview').css('display', 'block'); // Hiển thị ảnh xem trước
+
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                       }
+                    }
+
+                
+
+       </script>
+}

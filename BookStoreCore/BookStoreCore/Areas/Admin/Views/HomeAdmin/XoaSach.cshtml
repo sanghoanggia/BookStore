@@ -1,0 +1,73 @@
+﻿@model BookStoreCore.Models.Sach
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "XoaSach";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>XoaSach</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Sach</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tensach)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tensach)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Giaban)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Giaban)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mota)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mota)
+        </dd>
+        <dt class = "col-sm-2">
+            <img src="@Url.Content("~/image/" + @Model.Anhbia)" alt="image" width="70" height="70" />
+
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Anhbia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ngaycapnhap)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ngaycapnhap)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Soluongton)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Soluongton)
+        </dd>
+        <dt class = "col-sm-2">
+          Tên chủ đề
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.tenchude
+        </dd>
+        <dt class = "col-sm-2">
+          Tên nhà xuất bản
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.tennhaxuatban
+        </dd>
+    </dl>
+
+    <form asp-action="XacNhanXoaSach" method="post">
+        <input type="hidden" asp-for="Masach" />
+        <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');" class="btn btn-danger">Xóa</button> |
+        <a asp-action="DanhMucSanPham" class="btn">Quay Lại</a>
+    </form>
+
+</div>
